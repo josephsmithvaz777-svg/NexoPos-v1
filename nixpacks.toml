@@ -6,7 +6,7 @@ cmds = [
     "npm install", 
     "npm run build", 
     "mkdir -p bootstrap/cache",
-    "composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts"
+    "composer install --optimize-autoloader --ignore-platform-reqs --no-scripts"
 ]
 
 [start]
