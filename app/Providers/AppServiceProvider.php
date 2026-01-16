@@ -264,6 +264,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (config('app.env') !== 'local') {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
+
         /**
          * let's create a default sqlite
          * database. This file is not tracked by Git.
