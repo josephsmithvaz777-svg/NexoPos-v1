@@ -5,6 +5,11 @@
  */
 
 /**
+ * We'll trust all proxies since we are behind a load balancer (Coolify/Traefik).
+ */
+$middleware->trustProxies(at: '*');
+
+/**
  * We'll list here all aliased middleware.
  */
 $middleware->alias( [
