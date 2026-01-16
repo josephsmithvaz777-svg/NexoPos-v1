@@ -5,6 +5,7 @@ nixPkgs = ["php83", "php83Extensions.pdo_mysql", "php83Extensions.bcmath", "php8
 cmds = [
     "npm install", 
     "npm run build", 
+    "mkdir -p bootstrap/cache",
     "composer install --no-dev --optimize-autoloader --ignore-platform-reqs --no-scripts"
 ]
 
