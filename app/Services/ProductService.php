@@ -728,7 +728,7 @@ class ProductService
                     $unitQuantity = new ProductUnitQuantity;
                     $unitQuantity->unit_id = $group[ 'unit_id' ];
                     $unitQuantity->product_id = $product->id;
-                    $unitQuantity->quantity = $group[ 'quantity' ] ?? 0;
+                    $unitQuantity->quantity = $group[ 'quantity' ] ?? $fields[ 'quantity' ] ?? 0;
                 }
 
                 /**

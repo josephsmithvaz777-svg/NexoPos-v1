@@ -258,13 +258,6 @@ class ProductCrud extends CrudService
                 label: '',
                 name: 'id',
             ),
-            FormInput::number(
-                errors: [],
-                label: __( 'Initial Stock' ),
-                name: 'quantity',
-                value: 0,
-                description: __( 'Enter the initial stock for this unit.' ),
-            ),
         ) );
 
         return Hook::filter( 'ns-products-crud-form', [
@@ -358,6 +351,12 @@ class ProductCrud extends CrudService
                                     'label' => __( 'Stock Management Enabled' ),
                                     'validation' => 'required',
                                     'value' => $entry->stock_management ?? 'enabled',
+                                ], [
+                                    'type' => 'number',
+                                    'name' => 'quantity',
+                                    'description' => __( 'Enter the initial stock for this product.' ),
+                                    'label' => __( 'Initial Stock' ),
+                                    'value' => $entry->quantity ?? 0,
                                 ], [
                                     'type' => 'textarea',
                                     'name' => 'description',

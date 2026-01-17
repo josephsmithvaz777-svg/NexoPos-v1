@@ -734,7 +734,8 @@ export default {
         },
         loadForm() {
             return new Promise( ( resolve, reject ) => {
-                const request   =   nsHttpClient.get( `${this.src}` );
+                const url       =   this.src + ( this.src.includes( '?' ) ? '&' : '?' ) + window.location.search.substring(1);
+                const request   =   nsHttpClient.get( url );
                 this.hasLoaded  =   false;
                 this.hasError   =   false;
 
