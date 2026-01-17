@@ -189,7 +189,7 @@
     ]
   },
   "resources/css/app.css": {
-    "file": "assets/app-CHhhYVSg.css",
+    "file": "assets/app-OH31IoAY.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "names": [
@@ -197,7 +197,7 @@
     ]
   },
   "resources/css/dark.css": {
-    "file": "assets/dark-DoCbGv6c.css",
+    "file": "assets/dark-C-DGjm0M.css",
     "src": "resources/css/dark.css",
     "isEntry": true,
     "names": [
@@ -213,7 +213,7 @@
     ]
   },
   "resources/css/grid.css": {
-    "file": "assets/grid-DiIOPwAk.css",
+    "file": "assets/grid-B8eLoU8Y.css",
     "src": "resources/css/grid.css",
     "isEntry": true,
     "names": [
@@ -221,7 +221,7 @@
     ]
   },
   "resources/css/light.css": {
-    "file": "assets/light-C-ChwF5m.css",
+    "file": "assets/light-BzaXQCs4.css",
     "src": "resources/css/light.css",
     "isEntry": true,
     "names": [
@@ -229,7 +229,7 @@
     ]
   },
   "resources/css/phosphor.css": {
-    "file": "assets/phosphor-BlqIrd__.css",
+    "file": "assets/phosphor-DbE1welR.css",
     "src": "resources/css/phosphor.css",
     "isEntry": true,
     "names": [
@@ -329,7 +329,7 @@
     ]
   },
   "resources/ts/app-init.ts": {
-    "file": "assets/app-init-lP5FvAud.js",
+    "file": "assets/app-init-CDaUTg-T.js",
     "name": "app-init",
     "src": "resources/ts/app-init.ts",
     "isEntry": true,
@@ -796,7 +796,7 @@
     ]
   },
   "resources/ts/pages/dashboard/procurements/manage-products.vue": {
-    "file": "assets/manage-products-D8eh7YJW.js",
+    "file": "assets/manage-products-DnfI00tr.js",
     "name": "manage-products",
     "src": "resources/ts/pages/dashboard/procurements/manage-products.vue",
     "isDynamicEntry": true,

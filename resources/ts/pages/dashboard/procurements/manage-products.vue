@@ -69,8 +69,13 @@
                             <div class="rounded shadow p-2">
                                 <div class="-mx-4 flex flex-wrap" v-if="! [ 'images', 'units', 'groups' ].includes( getActiveTabKey( variation.tabs ) )">
                                     <template v-for="( field, index ) of getActiveTab( variation.tabs ).fields" :key="index">
-                                        <div class="flex flex-col px-4 w-full md:w-1/2 lg:w-1/3">
+                                        <div class="flex flex-col px-4 w-full md:w-1/2 lg:w-1/3 relative">
                                             <ns-field @saved="handleSaved( $event, getActiveTabKey( variation.tabs ), variation_index, field )" :field="field"></ns-field>
+                                            <div v-if="field.name === 'sku'" class="absolute top-0 right-4 h-8 flex items-center">
+                                                <button @click.prevent="generateSku(variation_index)" class="text-[10px] text-info-secondary hover:text-info-primary font-bold uppercase tracking-wider bg-info-secondary/10 px-2 py-0.5 rounded border border-info-secondary/20">
+                                                    <i class="las la-sync mr-1"></i>{{ __( 'Generate' ) }}
+                                                </button>
+                                            </div>
                                         </div>
                                     </template>
                                 </div>
@@ -199,6 +204,7 @@ export default {
             hasLoaded: false,
             hasError: false,
             isWatching: false,
+            lastProductName: '',
         }
     },
     watch: {
@@ -273,6 +279,16 @@ export default {
                         }
                     })
                 });
+
+                if ( this.form.main.value && this.form.main.value !== this.lastProductName ) {
+                    this.form.variations.forEach( (variation, index) => {
+                        const field = variation.tabs.identification.fields.find( f => f.name === 'sku' );
+                        if ( field && ! field.value ) {
+                            field.value = this.slugify( this.form.main.value );
+                        }
+                    });
+                    this.lastProductName = this.form.main.value;
+                }
 
                 nsHooks.doAction( 'ns-products-form-updated', value );
 
@@ -813,6 +829,29 @@ export default {
                 this.loadAvailableUnits( activeTab, { name: 'unit_group', value: this.getActiveTab( this.form.variations[0].tabs).unit_group_id } );
             } catch( exception ) {
                 // ...
+            }
+        },
+
+        slugify( text ) {
+            return text.toString().toLowerCase()
+                .replace(/\s+/g, '-')           // Replace spaces with -
+                .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+                .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+                .replace(/^-+/, '')             // Trim - from start of text
+                .replace(/-+$/, '');            // Trim - from end of text
+        },
+
+        generateSku( variationIndex ) {
+            const name = this.form.main.value;
+            if ( name ) {
+                const sku = this.slugify( name );
+                const field = this.form.variations[ variationIndex ].tabs.identification.fields.find( f => f.name === 'sku' );
+                if ( field ) {
+                    field.value = sku;
+                    nsSnackBar.info( __( 'SKU generated from name.' ) );
+                }
+            } else {
+                nsSnackBar.error( __( 'Please enter a product name first.' ) );
             }
         }
     },
