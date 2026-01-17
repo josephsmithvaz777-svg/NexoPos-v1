@@ -17,7 +17,7 @@ echo "Configuring Nginx port..."
 sed -i "s/REPLACE_PORT/$PORT/g" /app/nginx.conf
 
 echo "Starting PHP-FPM..."
-php-fpm -y /app/php-fpm.conf -D
+php-fpm -R -y /app/php-fpm.conf -D
 
 echo "Starting Nginx..."
 nginx -c /app/nginx.conf
