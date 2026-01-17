@@ -12,6 +12,7 @@
         <div id="grid-container" class="rounded shadow  overflow-hidden flex-auto flex flex-col">
             <div id="grid-header" class="p-2 border-b ">
                 <div class="border rounded flex  overflow-hidden">
+                    <div style="background: red; color: white; padding: 5px; font-weight: bold;">TEST</div>
                     <button :title="__( 'Search for products.' )" @click="openSearchPopup()" class="w-10 h-10 border-r  outline-hidden">
                         <i class="las la-search"></i>
                     </button>
