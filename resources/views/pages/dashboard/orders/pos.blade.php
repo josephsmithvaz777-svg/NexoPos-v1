@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Gate;
 
 @section( 'layout.dashboard.body' )
 <div id="pos-app" class="h-full w-full relative">
+    <div style="position:fixed; bottom: 10px; right: 10px; background: red; color: white; padding: 10px; z-index: 9999; border-radius: 5px;">
+        V3.0 - DEBUG MODE
+    </div>
     <div id="loader" class="top-0 anim-duration-500 fade-in-entrance left-0 absolute w-full z-50 h-full flex flex-col items-center justify-center">
         @if ( ns()->option->get( 'ns_store_square_logo', false ) )
         <img src="{{ ns()->option->get( 'ns_store_square_logo' ) }}" alt="POS">
