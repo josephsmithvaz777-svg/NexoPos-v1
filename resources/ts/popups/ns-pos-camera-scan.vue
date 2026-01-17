@@ -1,5 +1,5 @@
 <template>
-    <div id="camera-scan-popup" class="ns-box shadow-lg w-full h-95vh md:h-[70vh] md:w-3/4 lg:w-2/3 flex flex-col overflow-hidden">
+    <div id="camera-scan-popup" class="ns-box shadow-lg flex flex-col overflow-hidden" :style="popupStyle">
         <div class="p-2 border-b ns-box-header flex justify-between items-center">
             <h3 class="text-fontcolor">{{ __( 'Scan Product' ) }}</h3>
             <div>
@@ -8,13 +8,39 @@
         </div>
         <div class="flex-auto overflow-hidden flex flex-col items-center justify-center bg-black relative">
             <div id="reader" class="w-full h-full"></div>
-            <div v-if="error" class="absolute bottom-5 bg-red-500 text-white p-2 rounded">
+            <div v-if="error" class="absolute bottom-5 bg-red-500 text-white p-2 rounded z-10">
                 {{ error }}
             </div>
+            <div v-if="scannedCode && !productFound" class="absolute inset-0 bg-black bg-opacity-90 flex items-center justify-center z-20 p-4">
+                <div class="bg-white rounded-lg p-6 max-w-md w-full">
+                    <h3 class="text-lg font-bold mb-4">{{ __( 'Product Not Found' ) }}</h3>
+                    <p class="mb-4">{{ __( 'Barcode:' ) }} <strong>{{ scannedCode }}</strong></p>
+                    <p class="mb-6 text-gray-600">{{ __( 'This product does not exist. Would you like to create it?' ) }}</p>
+                    <div class="flex gap-3">
+                        <button @click="createNewProduct()" class="flex-1 ns-button info">
+                            <i class="las la-plus mr-2"></i>{{ __( 'Create Product' ) }}
+                        </button>
+                        <button @click="resetScan()" class="flex-1 ns-button default">
+                            {{ __( 'Scan Again' ) }}
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="p-2 border-t ns-box-footer flex justify-center">
+        <div class="p-2 border-t ns-box-footer flex justify-between items-center gap-2">
+            <input 
+                ref="fileInput" 
+                type="file" 
+                accept="image/*" 
+                @change="handleFileUpload" 
+                class="hidden"
+            />
+            <button @click="$refs.fileInput.click()" class="ns-button default flex items-center gap-2">
+                <i class="las la-image"></i>
+                <span class="hidden sm:inline">{{ __( 'Upload Image' ) }}</span>
+            </button>
             <button @click="switchCamera()" class="ns-button default" v-if="cameras.length > 1">
-                {{ __( 'Switch Camera' ) }}
+                <i class="las la-sync-alt mr-2"></i>{{ __( 'Switch Camera' ) }}
             </button>
         </div>
     </div>
@@ -37,6 +63,26 @@ export default {
             currentCameraIndex: 0,
             isScanning: false,
             error: null,
+            scannedCode: null,
+            productFound: true,
+        }
+    },
+    computed: {
+        popupStyle() {
+            // Force full width on mobile with inline styles
+            const isMobile = window.innerWidth < 768;
+            if (isMobile) {
+                return {
+                    width: '100vw',
+                    height: '95vh',
+                    maxWidth: '100vw'
+                };
+            }
+            return {
+                width: '75vw',
+                height: '70vh',
+                maxWidth: '900px'
+            };
         }
     },
     mounted() {
@@ -73,19 +119,18 @@ export default {
 
         startScanning(cameraId) {
             // Calculate optimal qrbox size based on viewport
-            const viewportWidth = Math.min(window.innerWidth, 500);
-            const qrboxSize = Math.floor(viewportWidth * 0.8);
+            const viewportWidth = Math.min(window.innerWidth, 600);
+            const qrboxSize = Math.floor(viewportWidth * 0.85);
             
             this.html5QrCode.start(
                 cameraId, 
                 {
-                    fps: 20, // Increased FPS for smoother scanning
+                    fps: 20,
                     qrbox: { 
                         width: qrboxSize, 
-                        height: Math.floor(qrboxSize * 0.5) // Wider box for barcodes
+                        height: Math.floor(qrboxSize * 0.4) // Wider box for barcodes
                     },
-                    aspectRatio: 1.777778, // 16:9 aspect ratio
-                    // Prioritize barcode formats
+                    aspectRatio: 1.777778,
                     formatsToSupport: [
                         Html5QrcodeSupportedFormats.EAN_13,
                         Html5QrcodeSupportedFormats.EAN_8,
@@ -131,16 +176,36 @@ export default {
             }
         },
 
+        async handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            try {
+                await this.stopScanner();
+                
+                const html5QrCode = new Html5Qrcode("reader");
+                const result = await html5QrCode.scanFile(file, true);
+                
+                this.onScanSuccess(result, null);
+                
+                // Restart camera after file scan
+                setTimeout(() => {
+                    this.initializeScanner();
+                }, 1000);
+            } catch (err) {
+                nsSnackBar.error(__( 'Could not read barcode from image.' ));
+                console.error(err);
+                // Restart camera
+                this.initializeScanner();
+            }
+        },
+
         onScanSuccess(decodedText, decodedResult) {
             // Play a beep sound if possible
-            const audio = new Audio('/audio/beep.mp3'); // Assuming a beep sound exists or browser default
+            const audio = new Audio('/audio/beep.mp3');
             audio.play().catch(e => {});
 
-            // Stop scanning temporarily or close? 
-            // Usually in POS you want to scan one item and maybe scan another.
-            // But let's close it for now or debounce it.
-            
-            // Let's try to find the product
+            // Search for the product
             this.submitSearch(decodedText);
         },
 
@@ -153,14 +218,34 @@ export default {
                         next: result => {
                             POS.addToCart( result.product );
                             nsSnackBar.success( __( 'Product added to cart.' ) );
-                            this.closePopup(); // Close after successful scan? Or keep open?
-                            // For now, let's close it to emulate "scanning one item".
+                            this.closePopup();
                         },
                         error: ( error ) => {
-                            nsSnackBar.error( error.message || __( 'Product not found.' ) );
+                            // Product not found - show creation dialog
+                            this.scannedCode = value;
+                            this.productFound = false;
                         }
                     })
             }
+        },
+
+        createNewProduct() {
+            // Close scanner and redirect to product creation page with barcode pre-filled
+            this.closePopup();
+            
+            // Get the product creation URL from settings
+            const createUrl = POS.settings.getValue().urls.products_url || '/dashboard/products/create';
+            
+            // Open in new tab with barcode as query parameter
+            window.open(`${createUrl}?barcode=${this.scannedCode}`, '_blank');
+            
+            nsSnackBar.info(__( 'Opening product creation page...' ));
+        },
+
+        resetScan() {
+            this.scannedCode = null;
+            this.productFound = true;
+            // Scanner will continue running
         }
     }
 }
@@ -170,5 +255,17 @@ export default {
 #reader {
     width: 100%;
     height: 100%;
+}
+
+#camera-scan-popup {
+    position: relative;
+}
+
+/* Ensure popup is centered */
+@media (max-width: 768px) {
+    #camera-scan-popup {
+        margin: 0 !important;
+        border-radius: 0 !important;
+    }
 }
 </style>
