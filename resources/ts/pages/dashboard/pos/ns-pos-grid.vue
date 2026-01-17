@@ -170,6 +170,7 @@ export default {
         }
     },
     mounted() {
+        console.log('NexoPOS Grid Loaded - Camera Update Active');
         this.loadCategories();
 
         this.settingsSubscriber         =   POS.settings.subscribe( settings => {
