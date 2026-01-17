@@ -753,7 +753,7 @@
     ]
   },
   "resources/ts/pages/dashboard/pos/ns-pos-grid-v2.vue": {
-    "file": "assets/ns-pos-grid-v2-BdamxAX0.js",
+    "file": "assets/ns-pos-grid-v2-DPBADFZ8.js",
     "name": "ns-pos-grid-v2",
     "src": "resources/ts/pages/dashboard/pos/ns-pos-grid-v2.vue",
     "isDynamicEntry": true,
@@ -769,11 +769,11 @@
       "_chart-BXKSDqJb.js"
     ],
     "css": [
-      "assets/ns-pos-grid-v2-CdFfeXvU.css"
+      "assets/ns-pos-grid-v2-BH_n5cxd.css"
     ]
   },
   "resources/ts/pages/dashboard/pos/ns-pos.vue": {
-    "file": "assets/ns-pos-LokkawFx.js",
+    "file": "assets/ns-pos-C4OL0mK3.js",
     "name": "ns-pos",
     "src": "resources/ts/pages/dashboard/pos/ns-pos.vue",
     "isDynamicEntry": true,
@@ -1230,7 +1230,7 @@
     ]
   },
   "resources/ts/pos.ts": {
-    "file": "assets/pos-BgBGMR1i.js",
+    "file": "assets/pos-CQ2o6MJ-.js",
     "name": "pos",
     "src": "resources/ts/pos.ts",
     "isEntry": true,

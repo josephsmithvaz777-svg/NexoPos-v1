@@ -258,10 +258,12 @@ class ProductCrud extends CrudService
                 label: '',
                 name: 'id',
             ),
-            FormInput::hidden(
+            FormInput::number(
                 errors: [],
-                label: '',
+                label: __( 'Initial Stock' ),
                 name: 'quantity',
+                value: 0,
+                description: __( 'Enter the initial stock for this unit.' ),
             ),
         ) );
 
@@ -297,7 +299,7 @@ class ProductCrud extends CrudService
                                     'description' => __( 'Define the barcode value. Focus the cursor here before scanning the product.' ),
                                     'label' => __( 'Barcode' ),
                                     'validation' => '',
-                                    'value' => $entry->barcode ?? '',
+                                    'value' => $entry->barcode ?? request()->query( 'barcode', '' ),
                                 ], [
                                     'type' => 'text',
                                     'name' => 'sku',

@@ -228,8 +228,8 @@ export default {
             this.lastScannedCode = decodedText;
             this.lastScanTime = now;
             
-            // Play a beep sound if possible
-            const audio = new Audio('/audio/beep.mp3');
+            // Play a success sound
+            const audio = new Audio('/audio/ding.mp3');
             audio.play().catch(e => {});
 
             // Search for the product
