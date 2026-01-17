@@ -189,7 +189,7 @@
     ]
   },
   "resources/css/app.css": {
-    "file": "assets/app-S8-2zdMW.css",
+    "file": "assets/app-CHhhYVSg.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "names": [
@@ -197,7 +197,7 @@
     ]
   },
   "resources/css/dark.css": {
-    "file": "assets/dark-YXom1ctW.css",
+    "file": "assets/dark-DoCbGv6c.css",
     "src": "resources/css/dark.css",
     "isEntry": true,
     "names": [
@@ -213,7 +213,7 @@
     ]
   },
   "resources/css/grid.css": {
-    "file": "assets/grid-C6dDuxUW.css",
+    "file": "assets/grid-DiIOPwAk.css",
     "src": "resources/css/grid.css",
     "isEntry": true,
     "names": [
@@ -221,7 +221,7 @@
     ]
   },
   "resources/css/light.css": {
-    "file": "assets/light-CEGiR4-c.css",
+    "file": "assets/light-C-ChwF5m.css",
     "src": "resources/css/light.css",
     "isEntry": true,
     "names": [
@@ -229,7 +229,7 @@
     ]
   },
   "resources/css/phosphor.css": {
-    "file": "assets/phosphor-CrxZQ72a.css",
+    "file": "assets/phosphor-BlqIrd__.css",
     "src": "resources/css/phosphor.css",
     "isEntry": true,
     "names": [
@@ -753,7 +753,7 @@
     ]
   },
   "resources/ts/pages/dashboard/pos/ns-pos-grid-v2.vue": {
-    "file": "assets/ns-pos-grid-v2-NLUZVcuX.js",
+    "file": "assets/ns-pos-grid-v2-BdamxAX0.js",
     "name": "ns-pos-grid-v2",
     "src": "resources/ts/pages/dashboard/pos/ns-pos-grid-v2.vue",
     "isDynamicEntry": true,
@@ -769,11 +769,11 @@
       "_chart-BXKSDqJb.js"
     ],
     "css": [
-      "assets/ns-pos-grid-v2-BSMKjVW-.css"
+      "assets/ns-pos-grid-v2-CdFfeXvU.css"
     ]
   },
   "resources/ts/pages/dashboard/pos/ns-pos.vue": {
-    "file": "assets/ns-pos-usbOGeX4.js",
+    "file": "assets/ns-pos-LokkawFx.js",
     "name": "ns-pos",
     "src": "resources/ts/pages/dashboard/pos/ns-pos.vue",
     "isDynamicEntry": true,
@@ -1230,7 +1230,7 @@
     ]
   },
   "resources/ts/pos.ts": {
-    "file": "assets/pos-G--NVlGx.js",
+    "file": "assets/pos-BgBGMR1i.js",
     "name": "pos",
     "src": "resources/ts/pos.ts",
     "isEntry": true,

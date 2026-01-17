@@ -65,6 +65,8 @@ export default {
             error: null,
             scannedCode: null,
             productFound: true,
+            lastScannedCode: null,
+            lastScanTime: 0,
         }
     },
     computed: {
@@ -106,6 +108,18 @@ export default {
             try {
                 this.cameras = await Html5Qrcode.getCameras();
                 if (this.cameras && this.cameras.length) {
+                    // Try to find rear camera (environment facing)
+                    const rearCameraIndex = this.cameras.findIndex(camera => 
+                        camera.label && (
+                            camera.label.toLowerCase().includes('back') ||
+                            camera.label.toLowerCase().includes('rear') ||
+                            camera.label.toLowerCase().includes('environment')
+                        )
+                    );
+                    
+                    // Use rear camera if found, otherwise use first camera
+                    this.currentCameraIndex = rearCameraIndex !== -1 ? rearCameraIndex : 0;
+                    
                     this.html5QrCode = new Html5Qrcode("reader");
                     this.startScanning(this.cameras[this.currentCameraIndex].id);
                 } else {
@@ -201,6 +215,19 @@ export default {
         },
 
         onScanSuccess(decodedText, decodedResult) {
+            // Debounce: prevent scanning the same code multiple times
+            const now = Date.now();
+            const timeSinceLastScan = now - this.lastScanTime;
+            
+            // If same code scanned within 2 seconds, ignore it
+            if (this.lastScannedCode === decodedText && timeSinceLastScan < 2000) {
+                return;
+            }
+            
+            // Update last scan info
+            this.lastScannedCode = decodedText;
+            this.lastScanTime = now;
+            
             // Play a beep sound if possible
             const audio = new Audio('/audio/beep.mp3');
             audio.play().catch(e => {});
