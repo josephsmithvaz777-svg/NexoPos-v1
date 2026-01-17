@@ -10,7 +10,9 @@ php artisan storage:link
 php artisan ns:translate --symlink --force
 php artisan modules:symlink
 php artisan migrate --force
+php artisan optimize:clear
 php artisan optimize
+php artisan view:clear
 php artisan view:cache
 
 echo "Configuring Nginx port..."
