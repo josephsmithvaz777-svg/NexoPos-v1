@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["php83", "php83Extensions.pdo_mysql", "php83Extensions.bcmath", "php83Extensions.gd", "php83Extensions.zip", "php83Extensions.intl", "nodejs_20", "git", "unzip", "curl", "php83Packages.composer"]
+nixPkgs = ["php83", "php83Extensions.pdo_mysql", "php83Extensions.bcmath", "php83Extensions.gd", "php83Extensions.zip", "php83Extensions.intl", "php83Extensions.opcache", "nodejs_20", "git", "unzip", "curl", "php83Packages.composer"]
 
 [phases.build]
 cmds = [
@@ -10,4 +10,4 @@ cmds = [
 ]
 
 [start]
-cmd = "chmod -R 777 storage bootstrap/cache && php artisan optimize:clear && php artisan package:discover --ansi && php artisan storage:link && php artisan migrate --force && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan serve --host=0.0.0.0 --port=$PORT"
+cmd = "chmod -R 777 storage bootstrap/cache && php artisan package:discover --ansi && php artisan storage:link && php artisan ns:translate --symlink --force && php artisan modules:symlink && php artisan migrate --force && php artisan optimize && php artisan view:cache && php artisan serve --host=0.0.0.0 --port=$PORT"
