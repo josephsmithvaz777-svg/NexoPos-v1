@@ -145,7 +145,7 @@ class AuthController extends Controller
         $attempt = Auth::attempt( [
             'username' => $request->input( 'username' ),
             'password' => $request->input( 'password' ),
-        ] );
+        ], (bool) $request->input( 'remember' ) );
 
         if ( $request->expectsJson() ) {
             return $this->handleJsonRequests( $request, $attempt );

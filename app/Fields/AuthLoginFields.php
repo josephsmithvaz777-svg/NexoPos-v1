@@ -34,6 +34,11 @@ class AuthLoginFields extends FieldsService
                     description: __( 'Provide your password.' ),
                     validation: 'required|min:6',
                     name: 'password',
+                ),
+                FormInput::checkbox(
+                    label: __( 'Keep me signed in' ),
+                    name: 'remember',
+                    value: '1'
                 )
             )
         );
