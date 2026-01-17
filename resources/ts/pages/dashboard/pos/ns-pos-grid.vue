@@ -15,7 +15,7 @@
                     <button :title="__( 'Search for products.' )" @click="openSearchPopup()" class="w-10 h-10 border-r  outline-hidden">
                         <i class="las la-search"></i>
                     </button>
-                    <button :title="__( 'Scan with Camera' )" @click="openCameraPopup()" class="w-10 h-10 border-r  outline-hidden">
+                    <button :title="__( 'Scan with Camera' )" @click="openCameraPopup()" class="w-10 h-10 border-r  outline-hidden bg-blue-500 text-white">
                         <i class="las la-camera"></i>
                     </button>
                     <button :title="__( 'Toggle merging similar products.' )" @click="posToggleMerge()" :class="settings.ns_pos_items_merge ? 'pos-button-clicked' : ''" class="outline-hidden w-10 h-10 border-r ">
