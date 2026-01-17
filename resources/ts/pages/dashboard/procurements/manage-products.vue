@@ -284,7 +284,7 @@ export default {
                     this.form.variations.forEach( (variation, index) => {
                         const field = variation.tabs.identification.fields.find( f => f.name === 'sku' );
                         if ( field && ! field.value ) {
-                            field.value = this.slugify( this.form.main.value );
+                            field.value = this.generateSkuFromName( this.form.main.value );
                         }
                     });
                     this.lastProductName = this.form.main.value;
@@ -841,10 +841,25 @@ export default {
                 .replace(/-+$/, '');            // Trim - from end of text
         },
 
+        generateSkuFromName( name ) {
+            if ( ! name ) return '';
+            
+            // Pattern: ABC-DEF-GHI-001
+            // 1. To Uppercase and remove special chars
+            const cleanName = name.toUpperCase().replace(/[^\w\s]/g, '');
+            const words = cleanName.split(/\s+/).filter( w => w.length >= 2 );
+            
+            // Take first 3 letters of first 3 significant words
+            const skuParts = words.slice(0, 3).map( word => word.substring(0, 3) );
+            
+            const prefix = skuParts.join('-');
+            return prefix ? `${prefix}-001` : '';
+        },
+
         generateSku( variationIndex ) {
             const name = this.form.main.value;
             if ( name ) {
-                const sku = this.slugify( name );
+                const sku = this.generateSkuFromName( name );
                 const field = this.form.variations[ variationIndex ].tabs.identification.fields.find( f => f.name === 'sku' );
                 if ( field ) {
                     field.value = sku;

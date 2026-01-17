@@ -329,7 +329,7 @@
     ]
   },
   "resources/ts/app-init.ts": {
-    "file": "assets/app-init-CDaUTg-T.js",
+    "file": "assets/app-init-DIAl19x5.js",
     "name": "app-init",
     "src": "resources/ts/app-init.ts",
     "isEntry": true,
@@ -796,7 +796,7 @@
     ]
   },
   "resources/ts/pages/dashboard/procurements/manage-products.vue": {
-    "file": "assets/manage-products-DnfI00tr.js",
+    "file": "assets/manage-products-DX9Qc1uJ.js",
     "name": "manage-products",
     "src": "resources/ts/pages/dashboard/procurements/manage-products.vue",
     "isDynamicEntry": true,
