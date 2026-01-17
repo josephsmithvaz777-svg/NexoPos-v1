@@ -20,7 +20,7 @@ const posApp    =   createApp({
 
 posApp.component( 'nsPos', defineAsyncComponent( () => import( '~/pages/dashboard/pos/ns-pos.vue' ) ) );
 posApp.component( 'nsPosCart', defineAsyncComponent( () => import( '~/pages/dashboard/pos/ns-pos-cart.vue' ) ) );
-posApp.component( 'nsPosGrid', defineAsyncComponent( () => import( '~/pages/dashboard/pos/ns-pos-grid.vue' ) ) );
+posApp.component( 'nsPosGrid', defineAsyncComponent( () => import( '~/pages/dashboard/pos/ns-pos-grid-v2.vue' ) ) );
 
 for( let name in baseComponents ) {
     posApp.component( name, baseComponents[ name ] );

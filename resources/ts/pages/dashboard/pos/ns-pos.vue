@@ -21,7 +21,7 @@
 </template>
 <script>
 import nsPosCart from './ns-pos-cart.vue';
-import nsPosGrid from './ns-pos-grid.vue';
+import nsPosGrid from './ns-pos-grid-v2.vue';
 
 export default {
     name: 'ns-pos',
