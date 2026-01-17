@@ -706,7 +706,7 @@ class ProductService
          */
         extract( $data );
 
-        if ( ! in_array( $field, [ 'units', 'images', 'groups' ] ) && ! is_array( $value ) ) {
+        if ( ! in_array( $field, [ 'units', 'images', 'groups', 'quantity' ] ) && ! is_array( $value ) ) {
             $product->$field = $value;
         } elseif ( $field === 'units' ) {
             $product->unit_group = $fields[ 'units' ][ 'unit_group' ];
