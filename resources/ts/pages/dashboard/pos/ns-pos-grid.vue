@@ -15,6 +15,9 @@
                     <button :title="__( 'Search for products.' )" @click="openSearchPopup()" class="w-10 h-10 border-r  outline-hidden">
                         <i class="las la-search"></i>
                     </button>
+                    <button :title="__( 'Scan with Camera' )" @click="openCameraPopup()" class="w-10 h-10 border-r  outline-hidden">
+                        <i class="las la-camera"></i>
+                    </button>
                     <button :title="__( 'Toggle merging similar products.' )" @click="posToggleMerge()" :class="settings.ns_pos_items_merge ? 'pos-button-clicked' : ''" class="outline-hidden w-10 h-10 border-r ">
                         <i class="las la-compress-arrows-alt"></i>
                     </button>
@@ -98,6 +101,7 @@
 import { nsHttpClient, nsSnackBar } from '../../../bootstrap'
 import switchTo from "~/libraries/pos-section-switch";
 import nsPosSearchProductVue from '~/popups/ns-pos-search-product.vue';
+import nsPosCameraScanVue from '~/popups/ns-pos-camera-scan.vue';
 import { __ } from '~/libraries/lang';
 import { nsCurrency, nsRawCurrency } from '~/filters/currency';
 
@@ -312,6 +316,10 @@ export default {
 
         openSearchPopup() {
             Popup.show( nsPosSearchProductVue );
+        },
+
+        openCameraPopup() {
+            Popup.show( nsPosCameraScanVue );
         },
 
         hasNoFeatured( product ) {
